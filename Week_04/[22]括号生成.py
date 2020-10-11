@@ -19,7 +19,7 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
-    def generateParenthesis(self, n: int) -> List[str]:
+    def generateParenthesis(self, n):
         if n <= 0: return []
         queue, res = [(0, 0, '')], []
         while queue:
@@ -32,3 +32,20 @@ class Solution:
                 queue.append((left, right + 1, tmp + ')'))
         return res
 # leetcode submit region end(Prohibit modification and deletion)
+
+class Solution:
+    def largestRectangleArea(self, n, heights):
+        max_area = 0
+        stack = []
+        heights = [0] + heights + [0]
+        for i in range(len(heights)):
+            while stack and heights[stack[-1]] > heights[i]:
+                height_index = stack.pop()
+                max_area = max(max_area, (i - stack[-1] -1) * heights[height_index])
+
+            stack.append(i)
+
+        return max_area
+
+t = Solution()
+print(t.largestRectangleArea(5, [1,2,3,4,5]))
